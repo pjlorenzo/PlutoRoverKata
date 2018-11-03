@@ -105,5 +105,27 @@ namespace PlutoRover.Unit.Tests
             rover.PositionReported.Should().Be(result);
 
         }
+        [Test]
+        [TestCase(5, 0, Orientation.N, "5,99,N")]
+        [TestCase(5, 99, Orientation.S, "5,0,S")]
+        [TestCase(0, 5, Orientation.E, "99,5,E")]
+        [TestCase(99, 5, Orientation.W, "0,5,W")]
+        public void Rover_WhenMoveBackwardIsCalled_AndTheRoverIsInTheEdge_ThenUpdateThePosition(int positionX, int positionY, Orientation orientation, string result)
+        {
+
+            var initialPosition = new Position
+            {
+                x = positionX,
+                y = positionY,
+                Orientation = orientation
+            };
+
+            var rover = new Rover(initialPosition, plutoMap);
+
+            rover.MoveBackward();
+
+            rover.PositionReported.Should().Be(result);
+
+        }
     }
 }
