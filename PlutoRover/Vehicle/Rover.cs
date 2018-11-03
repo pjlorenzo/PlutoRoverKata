@@ -7,7 +7,13 @@ namespace PlutoRover.Vehicle
     {
         private Position _position;
 
-        public string PositionReported { get; set; }
+        public string PositionReported
+        {
+            get
+            {
+                return $"{_position.x},{_position.y},{_position.Orientation}";
+            }
+        }
 
         public Rover(Position position)
         {
@@ -16,46 +22,41 @@ namespace PlutoRover.Vehicle
 
         public void MoveForward()
         {
-            if (_position.Orientation == Orientation.N)
+            switch (_position.Orientation)
             {
-                _position.y++;
+                case Orientation.N:
+                    _position.y++;
+                    break;
+                case Orientation.E:
+                    _position.x++;
+                    break;
+                case Orientation.S:
+                    _position.y--;
+                    break;
+                case Orientation.W:
+                    _position.x--;
+                    break;
             }
-            if (_position.Orientation == Orientation.E)
-            {
-                _position.x++;
-            }
-            if (_position.Orientation == Orientation.S)
-            {
-                _position.y--;
-            }
-            if (_position.Orientation == Orientation.W)
-            {
-                _position.x--;
-            }
-            PositionReported = $"{_position.x},{_position.y},{_position.Orientation}";
         }
 
 
         public void MoveBackward()
         {
-            if (_position.Orientation == Orientation.N)
+            switch (_position.Orientation)
             {
-                _position.y--;
+                case Orientation.N:
+                    _position.y--;
+                    break;
+                case Orientation.E:
+                    _position.x--; ;
+                    break;
+                case Orientation.S:
+                    _position.y++;
+                        break;
+                case Orientation.W:
+                    _position.x++;
+                        break;               
             }
-            if (_position.Orientation == Orientation.E)
-            {
-                _position.x--;
-            }
-            if (_position.Orientation == Orientation.S)
-            {
-                _position.y++;
-            }
-            if (_position.Orientation == Orientation.W)
-            {
-                _position.x++;
-            }
-
-            PositionReported = $"{_position.x},{_position.y},{_position.Orientation}";
         }
 
         public void TurnLeft()
@@ -75,8 +76,6 @@ namespace PlutoRover.Vehicle
                     _position.Orientation = Orientation.N;
                     break;
             }
-
-            PositionReported = $"{_position.x},{_position.y},{_position.Orientation}";
         }
 
         public void TurnRight()
@@ -97,8 +96,6 @@ namespace PlutoRover.Vehicle
                     _position.Orientation = Orientation.N;
                     break;
             }
-
-            PositionReported = $"{_position.x},{_position.y},{_position.Orientation}";
         }
     }
 }
