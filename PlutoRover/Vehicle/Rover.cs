@@ -5,7 +5,7 @@ namespace PlutoRover.Vehicle
 {
     public class Rover
     {
-        private Position _position;
+        private IPosition _position;
 
         public string PositionReported
         {
@@ -15,7 +15,7 @@ namespace PlutoRover.Vehicle
             }
         }
 
-        public Rover(Position position)
+        public Rover(IPosition position)
         {
             _position = position;
         }

@@ -2,7 +2,7 @@ using PlutoRover.Enums;
 
 namespace PlutoRover.Vehicle
 {
-    public class Position
+    public class Position : IPosition
     {
         public int x { get; set; }
         public int y { get; set; }
