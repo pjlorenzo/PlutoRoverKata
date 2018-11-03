@@ -1,11 +1,13 @@
 using System;
 using PlutoRover.Enums;
+using PlutoRover.PlanetMap;
 
 namespace PlutoRover.Vehicle
 {
     public class Rover
     {
         private IPosition _position;
+        private readonly PlutoMap _plutoMap;
 
         public string PositionReported
         {
@@ -15,9 +17,10 @@ namespace PlutoRover.Vehicle
             }
         }
 
-        public Rover(IPosition position)
+        public Rover(IPosition position, PlutoMap plutoMap)
         {
             _position = position;
+            _plutoMap = plutoMap;
         }
 
         public void MoveForward()
@@ -28,8 +31,13 @@ namespace PlutoRover.Vehicle
                     _position.y++;
                     break;
                 case Orientation.E:
-                    _position.x++;
+                {
+                    var newposition = _position.x + 1;
+                     var finalPosition = newposition > _plutoMap.SizeX ? newposition - _plutoMap.SizeX - 1 : newposition;
+                        
+                    _position.x=finalPosition;
                     break;
+                }
                 case Orientation.S:
                     _position.y--;
                     break;

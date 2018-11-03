@@ -2,15 +2,19 @@ using System;
 using FluentAssertions;
 using NUnit.Framework;
 using PlutoRover.Enums;
+using PlutoRover.PlanetMap;
 using PlutoRover.Vehicle;
 
 namespace PlutoRover.Unit.Tests
 {
     public class RoverTests
     {
+        private PlutoMap plutoMap;
         [SetUp]
         public void Setup()
         {
+            
+            plutoMap = new PlutoMap();
         }
 
         [Test]
@@ -20,8 +24,9 @@ namespace PlutoRover.Unit.Tests
         [TestCase(50, 50, Orientation.W, "49,50,W")]
         public void Rover_WhenMoveForwardIsCalled_ThenUpdatePosition(int positionX, int positionY, Orientation orientation, string result)
         {
+            
             var initialPosition = new Position{x = positionX, y = positionY, Orientation = orientation};
-            var rover = new Rover(initialPosition);
+            var rover = new Rover(initialPosition,plutoMap);
             rover.MoveForward();
             rover.PositionReported.Should().Be(result);
         }
@@ -33,8 +38,9 @@ namespace PlutoRover.Unit.Tests
         [TestCase(50, 50, Orientation.W, "51,50,W")]
         public void Rover_WhenMoveBackwardIsCalled_ThenMoveBackwardByOneNoChangeOnDirection(int positionX, int positionY, Orientation orientation, string result)
         {
+            
             var initialPosition = new Position { x = positionX, y = positionY, Orientation = orientation };
-            var rover = new Rover(initialPosition);
+            var rover = new Rover(initialPosition, plutoMap);
             rover.MoveBackward();
             rover.PositionReported.Should().Be(result);
         }
@@ -46,6 +52,7 @@ namespace PlutoRover.Unit.Tests
         [TestCase(50,50,Orientation.E, "50,50,N")]
         public void Rover_WhenMoveLeft_ThenChangeDirection(int positionX, int positionY, Orientation orientation, string result)
         {
+            
             var initialPosition = new Position
             {
                 x = positionX,
@@ -53,7 +60,7 @@ namespace PlutoRover.Unit.Tests
                 Orientation = orientation
             };
 
-            var rover = new Rover(initialPosition);
+            var rover = new Rover(initialPosition, plutoMap);
             rover.TurnLeft();
             rover.PositionReported.Should().Be(result);
         }
@@ -64,6 +71,7 @@ namespace PlutoRover.Unit.Tests
         [TestCase(50, 50, Orientation.W, "50,50,N")]
         public void Rover_WhenTurnRight_ThenChangeDirection(int positionX, int positionY, Orientation orientation, string result)
         {
+            
             var initialPosition = new Position
             {
                 x = positionX,
@@ -71,9 +79,27 @@ namespace PlutoRover.Unit.Tests
                 Orientation = orientation
             };
 
-            var rover = new Rover(initialPosition);
+            var rover = new Rover(initialPosition, plutoMap);
             rover.TurnRight();
             rover.PositionReported.Should().Be(result);
+        }
+        [Test]
+        public void Rover_WhenMoveForwardIsCalled_AndTheRoverIsInTheEdge_ThenUpdateThePosition()
+        {
+            
+            var initialPosition = new Position
+            {
+                x = 99,
+                y = 5,
+                Orientation = Orientation.E
+            };
+
+            var rover = new Rover(initialPosition, plutoMap);
+
+            rover.MoveForward();
+
+            rover.PositionReported.Should().Be("0,5,E");
+
         }
     }
 }
