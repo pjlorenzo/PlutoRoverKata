@@ -25,24 +25,31 @@ namespace PlutoRover.Vehicle
 
         public void MoveForward()
         {
+            var newPosition = 0;
+            var finalPosition = 0;
             switch (_position.Orientation)
             {
                 case Orientation.N:
-                    _position.y++;
+                    newPosition = _position.y + 1;
+                    finalPosition = newPosition > _plutoMap.SizeY ? newPosition - _plutoMap.SizeY - 1 : newPosition;
+                    _position.y = finalPosition;
                     break;
                 case Orientation.E:
                 {
-                    var newposition = _position.x + 1;
-                     var finalPosition = newposition > _plutoMap.SizeX ? newposition - _plutoMap.SizeX - 1 : newposition;
-                        
+                    newPosition = _position.x + 1;
+                    finalPosition = newPosition > _plutoMap.SizeX ? newPosition - _plutoMap.SizeX - 1 : newPosition;    
                     _position.x=finalPosition;
                     break;
                 }
                 case Orientation.S:
-                    _position.y--;
+                    newPosition = _position.y - 1;
+                    finalPosition = newPosition < 0 ? _plutoMap.SizeY : newPosition;
+                    _position.y = finalPosition;
                     break;
                 case Orientation.W:
-                    _position.x--;
+                    newPosition = _position.x - 1;
+                    finalPosition = newPosition < 0 ?  _plutoMap.SizeX : newPosition;
+                    _position.x = finalPosition;
                     break;
             }
         }
