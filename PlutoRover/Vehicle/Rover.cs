@@ -78,5 +78,27 @@ namespace PlutoRover.Vehicle
 
             PositionReported = $"{_position.x},{_position.y},{_position.Orientation}";
         }
+
+        public void TurnRight()
+        {
+            switch (_position.Orientation)
+            {
+                case Orientation.N:
+                    _position.Orientation = Orientation.E;
+                    break;
+                case Orientation.E:
+                    _position.Orientation = Orientation.S;
+                    break;
+                    break;
+                case Orientation.S:
+                    _position.Orientation = Orientation.W;
+                    break;
+                case Orientation.W:
+                    _position.Orientation = Orientation.N;
+                    break;
+            }
+
+            PositionReported = $"{_position.x},{_position.y},{_position.Orientation}";
+        }
     }
 }
