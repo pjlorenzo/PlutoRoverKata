@@ -25,5 +25,14 @@ namespace PlutoRover.Unit.Tests
             rover.MoveForward();
             rover.PositionReported.Should().Be(result);
         }
+
+        [Test]
+        public void Rover_WhenMoveBackwardIsCalled_ThenMoveBackwardByOneNoChangeOnDirection()
+        {
+            var initialPosition = new Position { x = 50, y = 50, Orientation = Orientation.N };
+            var rover = new Rover(initialPosition);
+            rover.MoveBackward();
+            rover.PositionReported.Should().Be("50,49,N");
+        }
     }
 }

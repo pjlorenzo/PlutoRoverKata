@@ -35,6 +35,15 @@ namespace PlutoRover.Vehicle
             PositionReported = $"{_position.x},{_position.y},{_position.Orientation}";
         }
 
-        
+
+        public void MoveBackward()
+        {
+            if (_position.Orientation == Orientation.N)
+            {
+                _position.y--;
+            }
+
+            PositionReported = $"{_position.x},{_position.y},{_position.Orientation}";
+        }
     }
 }
