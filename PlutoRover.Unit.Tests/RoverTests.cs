@@ -40,18 +40,22 @@ namespace PlutoRover.Unit.Tests
         }
 
         [Test]
-        public void Rover_WhenMoveLeft_ThenChangeDirection()
+        [TestCase(50,50,Orientation.N, "50,50,W")]
+        [TestCase(50,50,Orientation.W, "50,50,S")]
+        [TestCase(50,50,Orientation.S, "50,50,E")]
+        [TestCase(50,50,Orientation.E, "50,50,N")]
+        public void Rover_WhenMoveLeft_ThenChangeDirection(int positionX, int positionY, Orientation orientation, string result)
         {
             var initialPosition = new Position
             {
-                x = 50,
-                y = 50,
-                Orientation = Orientation.N
+                x = positionX,
+                y = positionY,
+                Orientation = orientation
             };
 
             var rover = new Rover(initialPosition);
             rover.TurnLeft();
-            rover.PositionReported.Should().Be("50,50,W");
+            rover.PositionReported.Should().Be(result);
         }
     }
 }

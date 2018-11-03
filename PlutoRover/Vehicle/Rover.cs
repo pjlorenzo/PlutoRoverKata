@@ -60,9 +60,20 @@ namespace PlutoRover.Vehicle
 
         public void TurnLeft()
         {
-            if (_position.Orientation == Orientation.N)
+            switch (_position.Orientation)
             {
-                _position.Orientation = Orientation.W;
+                case Orientation.N:
+                    _position.Orientation = Orientation.W;
+                    break;
+                case Orientation.W:
+                    _position.Orientation = Orientation.S;
+                    break;
+                case Orientation.S:
+                    _position.Orientation = Orientation.E;
+                    break;
+                case Orientation.E:
+                    _position.Orientation = Orientation.N;
+                    break;
             }
 
             PositionReported = $"{_position.x},{_position.y},{_position.Orientation}";
