@@ -57,5 +57,15 @@ namespace PlutoRover.Vehicle
 
             PositionReported = $"{_position.x},{_position.y},{_position.Orientation}";
         }
+
+        public void TurnLeft()
+        {
+            if (_position.Orientation == Orientation.N)
+            {
+                _position.Orientation = Orientation.W;
+            }
+
+            PositionReported = $"{_position.x},{_position.y},{_position.Orientation}";
+        }
     }
 }

@@ -38,5 +38,20 @@ namespace PlutoRover.Unit.Tests
             rover.MoveBackward();
             rover.PositionReported.Should().Be(result);
         }
+
+        [Test]
+        public void Rover_WhenMoveLeft_ThenChangeDirection()
+        {
+            var initialPosition = new Position
+            {
+                x = 50,
+                y = 50,
+                Orientation = Orientation.N
+            };
+
+            var rover = new Rover(initialPosition);
+            rover.TurnLeft();
+            rover.PositionReported.Should().Be("50,50,W");
+        }
     }
 }
