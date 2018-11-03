@@ -27,12 +27,16 @@ namespace PlutoRover.Unit.Tests
         }
 
         [Test]
-        public void Rover_WhenMoveBackwardIsCalled_ThenMoveBackwardByOneNoChangeOnDirection()
+        [TestCase(50, 50, Orientation.N, "50,49,N")]
+        [TestCase(50, 50, Orientation.E, "49,50,E")]
+        [TestCase(50, 50, Orientation.S, "50,51,S")]
+        [TestCase(50, 50, Orientation.W, "51,50,W")]
+        public void Rover_WhenMoveBackwardIsCalled_ThenMoveBackwardByOneNoChangeOnDirection(int positionX, int positionY, Orientation orientation, string result)
         {
-            var initialPosition = new Position { x = 50, y = 50, Orientation = Orientation.N };
+            var initialPosition = new Position { x = positionX, y = positionY, Orientation = orientation };
             var rover = new Rover(initialPosition);
             rover.MoveBackward();
-            rover.PositionReported.Should().Be("50,49,N");
+            rover.PositionReported.Should().Be(result);
         }
     }
 }

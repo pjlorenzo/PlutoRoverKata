@@ -42,6 +42,18 @@ namespace PlutoRover.Vehicle
             {
                 _position.y--;
             }
+            if (_position.Orientation == Orientation.E)
+            {
+                _position.x--;
+            }
+            if (_position.Orientation == Orientation.S)
+            {
+                _position.y++;
+            }
+            if (_position.Orientation == Orientation.W)
+            {
+                _position.x++;
+            }
 
             PositionReported = $"{_position.x},{_position.y},{_position.Orientation}";
         }
